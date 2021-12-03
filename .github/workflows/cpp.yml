@@ -23,4 +23,4 @@ jobs:
     - name: make
       run: make
     - name: run
-      run: ./primes 256
+      run: ./primegen 256
