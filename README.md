@@ -11,6 +11,7 @@
 git clone https://github.com/cr-marcstevens/primegen
 cd primegen
 make
+make check
 ./primegen 512     # print primes <= 512
 ./primegen 256 512 # print primes >= 256, <= 512
 ```
