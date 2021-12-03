@@ -1,0 +1,26 @@
+name: C++ CI
+
+on:
+  push:
+    paths-ignore:
+    - 'README.md'
+    - 'LICENSE'
+  pull_request:
+    branches: [ main ]
+  
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+        compiler: [ g++, clang++ ]
+      fail-fast: false
+    runs-on: ${{ matrix.os }}
+    env:
+      CXX: ${{ matrix.compiler }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: make
+      run: make
+    - name: run
+      run: ./primes 256
