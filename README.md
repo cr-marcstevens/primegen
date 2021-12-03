@@ -18,5 +18,5 @@ make check
 
 # Memory usage
 
-`primegen` needs an upper-bound U to which it will sieve.
+`primegen` generate primes up to a given upper-bound U to which it will sieve.
 It will use approximately U/16 bytes of RAM.
