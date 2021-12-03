@@ -20,3 +20,16 @@ make check
 
 `primegen` generate primes up to a given upper-bound U to which it will sieve.
 It will use approximately U/16 bytes of RAM.
+
+# Speed
+
+Performance will vary with CPU. But here are some performance numbers for an Intel i7-7567U:
+
+```
+# sums all primes up to 2^32 in 4.3s
+time ./primegen $((1<<32)) -s
+
+# prints all primes up to 2^32 in 8.4s
+time ./primegen $((1<<32)) > /dev/null
+
+```
