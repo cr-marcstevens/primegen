@@ -10,7 +10,11 @@ primegen: primegen.cpp primegen.hpp
 	$(CXX) $(CXXFLAGS) -o $@ primegen.cpp
 
 check: primegen
-	test "24739512092254535" = `./primegen 1 1000000000 -s` && echo "OK"
-
+	./primegen 1 1000000000 -s > .test.txt
+	test `cat .test.txt | cut -d' ' -f1` = "count=50847534"
+	test `cat .test.txt | cut -d' ' -f2` = "sum=24739512092254535"
+	rm .test.txt
+	echo "OK"
+	
 clean:
 	rm primegen
