@@ -1,5 +1,7 @@
 # primegen
 
+[![C++ CI](https://github.com/cr-marcstevens/primegen/actions/workflows/cpp.yml/badge.svg)](https://github.com/cr-marcstevens/primegen/actions/workflows/cpp.yml)
+
 - `primegen.hpp`: C++ header-only library to generate small primes using Sieve of Eratosthenes
 - `primegen.cpp`: Command line utility
 
