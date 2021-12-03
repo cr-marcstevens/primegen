@@ -7,7 +7,7 @@ primegen: primegen.cpp primegen.hpp
 	$(CXX) $(CXXFLAGS) -o $@ primegen.cpp
 
 check: primegen
-	test 1 -eq `./primegen 1000000000 | md5sum | grep "92c178cc5bb85e06366551c0ae7e18f6" | wc -l` && echo "OK"
+	test "24739512092254535" = `./primegen 1 1000000000 -s` && echo "OK"
 
 clean:
 	rm primegen
