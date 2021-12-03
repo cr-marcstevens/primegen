@@ -35,6 +35,34 @@
 namespace primegen
 {
 
+// we use __builtin_ctz functions that are present with gcc and clang
+// for MSVC these are missing and we define them using _BitScanForward instead
+#ifdef _MSC_VER
+#ifndef __clang__
+#include <intrin.h>
+inline unsigned long __builtin_ctz(uint32_t x)
+{
+    unsigned long ret;
+    _BitScanForward(&index, x);
+    return ret;
+}
+inline unsigned long __builtin_ctzl(uint32_t x)
+{
+    unsigned long ret;
+    _BitScanForward(&index, x);
+    return ret;
+}
+#ifdef _WIN64
+inline unsigned long __builtin_ctzll(unsigned long long x)
+{
+    unsigned long ret;
+    _BitScanForward64(&index, x);
+    return ret;
+}
+#endif
+#endif
+#endif
+
 class prime_sieve
 {
 public:
