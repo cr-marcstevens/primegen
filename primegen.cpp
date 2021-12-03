@@ -69,9 +69,12 @@ int main(int argc, char** argv)
     {
         ps.genprimes(lb, ub, pg::printprime());
     } else {
-        size_t psum = 0;
-        ps.genprimes(lb, ub, [&psum](size_t p){ psum += p; });
-        std::cout << psum << std::endl;
+        size_t psum = 0, pcnt = 0;
+        bool overflow = false;
+        ps.genprimes(lb, ub, [&](size_t p){ ++pcnt; psum += p; if (psum < p) overflow = true; });
+        if (overflow)
+            std::cerr << "Warning: sum overflow in size_t" << std::endl;
+        std::cout << "count=" << pcnt << " sum=" << psum << std::endl;
     }
 
     return 0;

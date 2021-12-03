@@ -2,6 +2,9 @@
 
 CXX ?= g++
 CXXFLAGS ?= -std=c++11 -march=native -O3
+# -g -ggdb -fsanitize=address
+
+all: primegen
 
 primegen: primegen.cpp primegen.hpp
 	$(CXX) $(CXXFLAGS) -o $@ primegen.cpp

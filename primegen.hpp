@@ -200,7 +200,7 @@ public:
         _make_prefilter();
 
         // initialize sieve with prefilter
-        size_t ub_block_factor = (ub + (_prefilter.size()*wordnumbers) - 1) / (_prefilter.size()*wordnumbers);
+        size_t ub_block_factor = (ub + 2 + (_prefilter.size()*wordnumbers) - 1) / (_prefilter.size()*wordnumbers);
         _sieve.resize( ub_block_factor * _prefilter.size() );
         for (size_t i = 0; i < ub_block_factor; ++i)
             memcpy(&_sieve[i * _prefilter.size()], &_prefilter[0], _prefilter.size()*wordbits/8);
@@ -216,6 +216,10 @@ public:
         _tmpbuf[0] = 0;
         _tmpbufend = 1;
 
+        size_t maxp = 1;
+        while (maxp * maxp != 0)
+            maxp <<= 1;
+
         // start sieving!
         for (size_t n = 1; n < ub; n += wordnumbers)
         {
@@ -229,7 +233,7 @@ public:
                     return;
                 if (p >= lb)
                     callback(p);
-                if (p*p < ub)
+                if (p < maxp && p*p < ub)
                     _markprimefast(p, ub);
             }
         }
