@@ -70,7 +70,7 @@ int main(int argc, char** argv)
         ps.genprimes(lb, ub, pg::printprime());
     } else {
         size_t psum = 0;
-        ps.genprimes(lb, ub, [&psum](int p){ psum += p; });
+        ps.genprimes(lb, ub, [&psum](size_t p){ psum += p; });
         std::cout << psum << std::endl;
     }
 
