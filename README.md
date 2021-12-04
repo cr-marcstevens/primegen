@@ -16,10 +16,18 @@ make check
 ./primegen 256 512 # print primes >= 256, <= 512
 ```
 
+# Robustness
+
+Various tests have been done to verify correctness:
+- check first 1'000'000'000 primes against known good prime generator
+- verify number of primes <= N against wolfram alpha, for N up to 345922914885558322 (~2^41.6)
+- verify sum of primes <= N against wolfram alpha, for N up to 2^33
+
 # Memory usage
 
-`primegen` generate primes up to a given upper-bound U to which it will sieve.
-It will use approximately U/16 bytes of RAM.
+`primegen` generate primes up to a given upper-bound `U` to which it will sieve.
+It will use approximately `U/16` bytes of RAM.
+TODO: implement segmented version that will use `constant*sqrt(U)` memory.
 
 # Speed
 
@@ -29,7 +37,12 @@ Performance will vary with CPU. But here are some performance numbers for an Int
 # sums all primes up to 2^32 in 4.3s
 time ./primegen $((1<<32)) -s
 
-# prints all primes up to 2^32 in 8.4s
+# prints all primes up to 2^32 in decimal in 8.4s
 time ./primegen $((1<<32)) > /dev/null
 
+# sums all primes up to 2^38 in 6m50s
+time ./primegen $((1<<38)) -s
+
+# prints all primes up to 2^38 in decimal in 10m35
+time ./primegen $((1<<38)) > /dev/null
 ```
