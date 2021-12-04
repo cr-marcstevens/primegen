@@ -20,8 +20,8 @@ make check
 
 Various tests have been done to verify correctness:
 - check first 1'000'000'000 primes against known good prime generator
-- verify number of primes <= N against wolfram alpha, for N up to 345922914885558322 (~2^41.6)
-- verify sum of primes <= N against wolfram alpha, for N up to 2^33
+- verify number of primes <= N against [wolfram alpha](https://www.wolframalpha.com/input/?i=number+of+primes+%3C+3435973836800), for N up to 3435973836800 (~2^41.6)
+- verify sum of primes <= N against [wolfram alpha](https://www.wolframalpha.com/input/?i=sum+of+primes+%3C+2%5E33), for N up to 2^33
 
 # Memory usage
 
