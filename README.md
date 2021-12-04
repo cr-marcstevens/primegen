@@ -5,6 +5,11 @@
 - `primegen.hpp`: C++ header-only library to generate small primes using Sieve of Eratosthenes
 - `primegen.cpp`: Command line utility
 
+# Goal
+
+The goal of this project *is not* to be the fastest prime sieve. If you're looking for something like that then try https://github.com/kimwalisch/primesieve instead.
+The goal of this project is to be a fast prime sieve that can easily be included in C++ projects.
+
 # Getting started
 
 ```
