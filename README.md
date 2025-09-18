@@ -4,6 +4,7 @@
 
 - `primegen.hpp`: C++ header-only library to generate small primes using Sieve of Eratosthenes
 - `primegen.cpp`: Command line utility
+- `almostprimecount.cpp`: A k-almost prime counter command line utility
 
 # Goal
 
@@ -17,8 +18,9 @@ git clone https://github.com/cr-marcstevens/primegen
 cd primegen
 make
 make check
-./primegen 512     # print primes <= 512
-./primegen 256 512 # print primes >= 256, <= 512
+./primegen 512        # print primes <= 512
+./primegen 256 512    # print primes >= 256, <= 512
+./almostprimecount 32 # print counts of k-almost primes < 2^32
 ```
 
 # Robustness
