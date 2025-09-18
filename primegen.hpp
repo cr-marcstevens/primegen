@@ -30,6 +30,8 @@
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <cmath>
+#include <stdexcept>
 #include <vector>
 
 namespace primegen
@@ -40,19 +42,6 @@ namespace primegen
 #ifdef _MSC_VER
 #ifndef __clang__
 #include <intrin.h>
-inline unsigned long __builtin_ctz(uint32_t x)
-{
-    unsigned long ret;
-    _BitScanForward(&index, x);
-    return ret;
-}
-inline unsigned long __builtin_ctzl(uint32_t x)
-{
-    unsigned long ret;
-    _BitScanForward(&index, x);
-    return ret;
-}
-#ifdef _WIN64
 inline unsigned long __builtin_ctzll(unsigned long long x)
 {
     unsigned long ret;
@@ -61,7 +50,18 @@ inline unsigned long __builtin_ctzll(unsigned long long x)
 }
 #endif
 #endif
-#endif
+
+template<typename Int>
+Int ceil_sqrt(Int x)
+{
+    // r := smallest i such that i*i >= x
+    Int r = std::llround(std::sqrt(double(x)) - 1.0);
+    while (r*r < x)
+        ++r;
+    if ((r-1)*(r-1) >= x)
+        throw std::runtime_error("ceil_sqrt error");
+    return r;
+}
 
 class prime_sieve
 {
@@ -73,9 +73,6 @@ public:
     static const size_t tmpbufsize = (1<<18) * 8 / wordbits;
     
 private:
-    static inline unsigned _word_ctz(uint8_t x)  { return __builtin_ctz(x); }
-    static inline unsigned _word_ctz(uint16_t x) { return __builtin_ctz(x); }
-    static inline unsigned _word_ctz(uint32_t x) { return __builtin_ctzl(x); }
     static inline unsigned _word_ctz(uint64_t x) { return __builtin_ctzll(x); }
 
     // MUST be the first k primes in order, for some chosen k
@@ -208,17 +205,19 @@ public:
         
         // handle small primes of prefilter
         for (auto p : _prefilterprimes)
-            if (p >= lb && p <= ub)
+        {
+            if (p >= ub)
+                return;
+            if (p >= lb)
                 callback(p);
+        }
 
         // initialize tmp buffer        
         _tmpbuf.resize(tmpbufsize);
         _tmpbuf[0] = 0;
         _tmpbufend = 1;
 
-        size_t maxp = 1;
-        while (maxp * maxp != 0)
-            maxp <<= 1;
+        size_t maxp = ceil_sqrt(ub);
 
         // start sieving!
         for (size_t n = 1; n < ub; n += wordnumbers)
@@ -229,11 +228,11 @@ public:
                 size_t b = _word_ctz(x);
                 x ^= word_t(1)<<b;
                 size_t p = n+2*b;
-                if (p > ub)
+                if (p >= ub)
                     return;
                 if (p >= lb)
                     callback(p);
-                if (p < maxp && p*p < ub)
+                if (p < maxp)
                     _markprimefast(p, ub);
             }
         }

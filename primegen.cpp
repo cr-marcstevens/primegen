@@ -37,8 +37,8 @@ int main(int argc, char** argv)
     po::options_description opts("Command line options");
     opts.add_options()
         ("help,h", "Show options")
-        ("first,f", po::value<size_t>(&lb)->default_value(1), "Output primes >= first")
-        ("last,l", po::value<size_t>(&ub), "Output primes <= last")
+        ("begin,b", po::value<size_t>(&lb)->default_value(1), "Output primes >= begin")
+        ("end,e", po::value<size_t>(&ub), "Output primes < end")
         ("sum,s", "Print sum of all primes, instead of primes")
         ;
     po::variables_map vm;
